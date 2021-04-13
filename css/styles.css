@@ -11,6 +11,7 @@
   --border-container-color: #eeeeee;
   --clients-link-color: #afb1b8;
   --grid-item: 2;
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
@@ -129,6 +130,8 @@ img {
   line-height: 1.14;
   letter-spacing: 0.02em;
   text-decoration: none;
+
+  transition: color 250ms var(--timing-function);
 }
 
 .site-nav .link:hover,
@@ -137,7 +140,19 @@ img {
 }
 
 .site-nav .link.current {
+  position: relative;
   color: var(--accent-color);
+}
+
+.link.current::after {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  bottom: 0;
+  border-radius: 2px;
+  background-color: var(--accent-color);
 }
 
 /* contacts */
@@ -168,6 +183,8 @@ img {
   line-height: 1.14;
   letter-spacing: 0.02em;
   text-decoration: none;
+
+  transition: color 250ms var(--timing-function), fill 250ms var(--timing-function);
 }
 
 .contacts .link:hover,
@@ -305,6 +322,31 @@ img {
   --grid-item: 3;
 }
 
+.work-thumb {
+  position: relative;
+}
+
+.work-content {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  background-color: rgba(47, 48, 58, 0.8);
+  text-align: center;
+}
+
+.work-content .title {
+  margin-top: 27px;
+  margin-bottom: 27px;
+
+  color: var(--primary-white-color);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.14;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
 /* team */
 
 .team-list .title {
@@ -327,6 +369,7 @@ img {
 }
 
 .team-list .grid-item {
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 0px 0px 4px 4px;
   background-color: var(--primary-white-color);
 }
@@ -359,6 +402,8 @@ img {
   width: 44px;
   height: 44px;
   border-radius: 50%;
+
+  transition: background-color 250ms var(--timing-function), fill 250ms var(--timing-function);
 }
 
 .social-icons-link:hover .icon,
@@ -397,12 +442,16 @@ img {
   height: 90px;
   border: 1px solid var(--clients-link-color);
   border-radius: 4px;
+
+  transition: border 250ms var(--timing-function);
 }
 
 .clients-list .icon {
   width: 90px;
   height: 45px;
   fill: var(--clients-link-color);
+
+  transition: fill 250ms var(--timing-function);
 }
 
 .clients-link:focus .icon,
@@ -438,6 +487,8 @@ img {
 
 .footer .social-icons-link {
   background-color: rgba(255, 255, 255, 0.1);
+
+  transition: background-color 250ms var(--timing-function);
 }
 
 .footer .title {
@@ -446,6 +497,8 @@ img {
 
 .footer .icon {
   fill: var(--primary-white-color);
+
+  transition: fill 250ms var(--timing-function), background-color 250ms var(--timing-function);
 }
 
 .footer .social-icons-link:hover .icon,
@@ -483,11 +536,74 @@ img {
   text-decoration: none;
   font-size: 14px;
   line-height: 1.71;
+
+  transition: color 250ms var(--timing-function);
 }
 
 .contacts.link:hover,
 .contacts.link:focus {
   color: var(--accent-color);
+}
+
+/* backdrop */
+
+.backdrop {
+  position: fixed;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.2);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  opacity: 1;
+  transition: opacity 250ms var(--timing-function);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 100%;
+  max-width: 530px;
+  min-height: 580px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background-color: var(--primary-white-color);
+
+  transition: transform 250ms var(--timing-function);
+}
+
+.btn-close {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  background-color: var(--primary-white-color);
+}
+
+.backdrop .icon {
+  width: 18px;
+  height: 18px;
+  fill: #000000;
 }
 
 /* стили portfolio.html */
@@ -514,6 +630,8 @@ img {
   font-size: 16px;
   line-height: 1.62;
   text-align: center;
+
+  transition: color 250ms var(--timing-function), background-color 250ms var(--timing-function);
 }
 
 .portfolio-nav .button:hover,
@@ -529,8 +647,11 @@ img {
 }
 
 .portfolio .grid-item {
+  display: flex;
   background-color: var(--primary-white-color);
   border: 1px solid var(--border-container-color);
+
+  transition: box-shadow 250ms var(--timing-function);
 }
 
 .portfolio .grid-item:hover,
@@ -561,9 +682,44 @@ img {
   line-height: 1.87;
 }
 
-a.works:active,
-a.works:hover,
-a.works {
+.overlay-thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(33, 150, 243, 0.9);
+
+  transform: translateY(100%);
+  transition: transform 250ms var(--timing-function);
+}
+
+.portfolio .grid-item:hover .overlay,
+.portfolio .grid-item:focus .overlay {
+  transform: translateY(0);
+}
+
+.overlay .text {
+  margin-top: 63px;
+  margin-bottom: 63px;
+  margin-right: 24px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.56;
+  letter-spacing: 0.03em;
+  color: var(--primary-white-color);
+}
+
+a.link:active,
+a.link:hover,
+a.link:focus,
+a.link {
   text-decoration: none;
   color: inherit;
 }
